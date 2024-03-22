@@ -58,6 +58,8 @@ Sure!
 **A harder example which shows the value**:
 
 4. [Matching a Maryland math standard to Texas standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=B642AB10DFE701310AB168A86D17958E&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
+   - Source standard: "use phonological knowledge to match sounds to letters to construct unknown words;"
+   - Top Matched standard: "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions."
 
 # Can I use this?
 
