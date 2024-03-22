@@ -172,11 +172,11 @@ Most likely! We're not looking to make any money on this (our main gig is [Commo
 
 5. **Validating pgvector is the most appropriate and not Pinecone**. I think pgvector is as fast as Pinecone, but it's probably worth someone checking.
 
-# What are your next steps, Scott?
+# Of the next steps, what are you doing to do, Scott?
 
-- After some teams interested in using this can confirm which embedding model and how many dimensions to store are best, I'll hook up the pipeline so it's continously updated from Common Standards Project.
-- At this point, I won't be making the API production ready as it's not something we need for our app and we don't currently have the time to devote resources to do.
-- Continuing to host this POC and (if it gets traction), the database with the entire Common Standards Project corpus.
+- **Importing all the standards**. After some teams interested in using this can confirm which embedding model and how many dimensions to store are best, I'll hook up the pipeline so it's continously updated from Common Standards Project.
+- **Assisting but not building the API**: At this point, I won't be making the API production ready as it's not something we need for our app and we don't currently have the time to devote resources to do.
+- **Paying for hosting**: Continuing to host this POC and (if it gets traction), the database with the entire Common Standards Project corpus.
 
 # I'd like to help turn this API into something production ready.
 
