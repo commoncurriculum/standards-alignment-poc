@@ -47,19 +47,112 @@ const result = await connection.queryObject`
 
 Sure!
 
-**Some easy examples:**
+[Matching a Maryland math standard to Texas standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=B642AB10DFE701310AB168A86D17958E&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
 
-1. [Matching a Maryland HS standard to a standard in the Common Core](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=11179ED9013540D4AB575FC0B282C3D6&jurisdiction_id=67810E9EF6944F9383DCC602A3484C23)
+- Source standard: "use phonological knowledge to match sounds to letters to construct unknown words;"
+- Top Matched standard: "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions."
+  <details>
+      <summary>
+      API Response
+      </summary>
 
-2. [Matching a Maryland elementary standard to a standard in the Common Core](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=E24481EF280941E793D9DBBF885F3626&jurisdiction_id=67810E9EF6944F9383DCC602A3484C23)
+  ```json
+  {
+    "matching_from": {
+      "jurisdiction_id": "28903EF2A9F9469C9BF592D4D0BE10F8",
+      "jurisdiction_title": "Texas",
+      "standard": {
+        "id": "B642AB10DFE701310AB168A86D17958E",
+        "description": "use phonological knowledge to match sounds to letters to construct unknown words;",
+        "jurisdiction_id": "28903EF2A9F9469C9BF592D4D0BE10F8",
+        "jurisdiction_title": "Texas",
+        "list_id": "(A)",
+        "position": 69000,
+        "standard_set_id": "28903EF2A9F9469C9BF592D4D0BE10F8_D100036C_grade-02",
+        "standard_set_title": "Grade 2",
+        "standard_set_status": "Published",
+        "statement_notation": "ELA 2.23A",
+        "subject": "English Language Arts and Reading (2010)",
+        "ancestor_ids": [
+          "B64268E0DFE701310AB068A86D17958E",
+          "B63353A0DFE701310A7F68A86D17958E"
+        ]
+      }
+    },
+    "matching_to": {
+      "jurisdiction_id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+      "jurisdiction_title": "Maryland",
+      "matched_standards": [
+        {
+          "id": "6BF9628CE81C4264934C07E2164A8919",
+          "description": "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions.",
+          "jurisdiction_id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+          "jurisdiction_title": "Maryland",
+          "list_id": null,
+          "position": 113000,
+          "standard_set_id": "49FCDFBD2CF04033A9C347BFA0584DF0_D2605668_grade-01",
+          "statement_notation": "CCSS 1 L 2.e",
+          "standard_set_title": "Grade 1",
+          "standard_set_status": "Published",
+          "subject": "English Language Arts (2011)",
+          "ancestor_ids": [
+            "2B8E6AD9B5A143B5A059E35CF2EFEF5F",
+            "3028A9B598B04A09814A0CEFA7A52C2B",
+            "6BFE571725CC42419216890B8BD95FE4",
+            "E811AD999AD84FD19B02F843232C16D5"
+          ],
+          "similarity": "0.674182255614863"
+        },
+        {
+          "id": "1DA37A87DED0463C90B2BD3309FCB383",
+          "description": "Spell simple words phonetically, drawing on knowledge of sound-letter relationships.",
+          "jurisdiction_id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+          "jurisdiction_title": "Maryland",
+          "list_id": null,
+          "position": 105000,
+          "standard_set_id": "49FCDFBD2CF04033A9C347BFA0584DF0_D2605668_grade-k",
+          "statement_notation": "CCSS K L 2.d",
+          "standard_set_title": "Grade K",
+          "standard_set_status": "Published",
+          "subject": "English Language Arts (2011)",
+          "ancestor_ids": [
+            "9AB0CC1F6AD146DE9F41AB0F30CD1BDA",
+            "7E91FAE18284406EB23225709E87AF09",
+            "4E9649A1D13F49FA978B1F3A734E207A",
+            "BAEB9B8E6D944019B7DB571FA0A39EC3"
+          ],
+          "similarity": "0.653339505195622"
+        },
+        {
+          "id": "6304B4FD32444278B8F71CBFB472809C",
+          "description": "Spell untaught words phonetically, drawing on phonemic\nawareness and spelling conventions.",
+          "jurisdiction_id": "49FCDFBD2CF04033A9C347BFA0584DF0",
+          "jurisdiction_title": null,
+          "list_id": "e",
+          "position": 1099,
+          "standard_set_id": "3FC2D02A6B4B469D9800867F326B8734",
+          "statement_notation": "L.1.2.e",
+          "standard_set_title": null,
+          "standard_set_status": null,
+          "subject": "English Language Arts (2022)",
+          "ancestor_ids": [
+            "2ACBC5E8F1B64A4BB8F6B07EDAF1F7D2",
+            "D9670809F5874CBDB5C25B4605B1FD79",
+            "591A9BE3E0614F6D9AC6A00DBB44708F"
+          ],
+          "similarity": "0.652125161632876"
+        }
+      ]
+    }
+  }
+  ```
 
-3. [Matching a Common Core standard to Maryland Standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=41064C0B98A4460181333BF337E74EF3&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
+    </details>
 
-**A harder example which shows the value**:
+**Other examples: exact same standard in different jurisdictions:**
 
-4. [Matching a Maryland math standard to Texas standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=B642AB10DFE701310AB168A86D17958E&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
-   - Source standard: "use phonological knowledge to match sounds to letters to construct unknown words;"
-   - Top Matched standard: "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions."
+- [Matching a Maryland HS standard to a standard in the Common Core](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=11179ED9013540D4AB575FC0B282C3D6&jurisdiction_id=67810E9EF6944F9383DCC602A3484C23)
+- [Matching a Common Core standard to Maryland Standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=41064C0B98A4460181333BF337E74EF3&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
 
 # Can I use this?
 
@@ -94,3 +187,7 @@ Awesome! Reach out to Scott (scott at commoncurriculum).
 - If you'd like to continue the work with Supabase (my preference as it's serverless), I can invite as a collaborator on this repo and give you access to the Supabase project.
 
 - If you want to create the API differently and just need access to the DB, I'm happy to give you the credentials to connect to it.
+
+```
+
+```
