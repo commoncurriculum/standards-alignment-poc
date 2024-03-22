@@ -45,12 +45,10 @@ const result = await connection.queryObject`
 
 # Can I see an example?
 
-Sure!
+Sure! [Here's a Maryland math standard matched to Texas standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=B642AB10DFE701310AB168A86D17958E&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
 
-[Matching a Maryland math standard to Texas standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=B642AB10DFE701310AB168A86D17958E&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
-
-- Source standard: "use phonological knowledge to match sounds to letters to construct unknown words;"
-- Top Matched standard: "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions."
+- **Source standard** "use phonological knowledge to match sounds to letters to construct unknown words;"
+- **First matched standard** "Spell untaught words phonetically, drawing on phonemic awareness and spelling conventions."
   <details>
       <summary>
       API Response
@@ -149,7 +147,7 @@ Sure!
 
     </details>
 
-**Other examples: exact same standard in different jurisdictions:**
+**Other examples: same standard in different jurisdictions:**
 
 - [Matching a Maryland HS standard to a standard in the Common Core](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=11179ED9013540D4AB575FC0B282C3D6&jurisdiction_id=67810E9EF6944F9383DCC602A3484C23)
 - [Matching a Common Core standard to Maryland Standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=41064C0B98A4460181333BF337E74EF3&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
