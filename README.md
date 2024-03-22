@@ -10,6 +10,8 @@ All embeddings were create with `text-embedding-3-large` and stored at 1024 dime
 
 # Where does the source data come from?
 
+![CleanShot 2024-03-22 at 10 34 29](https://github.com/commoncurriculum/standards-alignment-poc/assets/100121/fdada56a-3e75-429a-a4ba-0156e2f5b578)
+
 [Common Standards Project](https://www.commonstandardsproject.com), the open source repository of standards. We have over 1.6 million. You can use them for free forever. If you're interested in getting involved and using the infrastructure to host your customer's custom standards, that's also free! If so, reach out to scott (scott at commoncurriculum.com).
 
 # Where does this all live?
