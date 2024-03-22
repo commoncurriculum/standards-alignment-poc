@@ -6,7 +6,7 @@ This proof-of-concept uses [OpenAI's newest embeddings](https://openai.com/blog/
 
 ![Animation showing how embeddings work](https://cdn.openai.com/new-and-improved-embedding-model/draft-20221214a/vectors-3.svg)
 
-All embeddings were create with `text-embedding-3-large` and stored 1024 dimensions.
+All embeddings were create with `text-embedding-3-large` and stored at 1024 dimensions.
 
 # Where does the source data come from?
 
