@@ -185,7 +185,3 @@ Awesome! Reach out to Scott (scott at commoncurriculum).
 - If you'd like to continue the work with Supabase (my preference as it's serverless), I can invite as a collaborator on this repo and give you access to the Supabase project.
 
 - If you want to create the API differently and just need access to the DB, I'm happy to give you the credentials to connect to it.
-
-```
-
-```
