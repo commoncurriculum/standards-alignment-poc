@@ -19,31 +19,6 @@ All embeddings were create with `text-embedding-3-large` and stored at 1024 dime
 - The API is running as an Edge Function on [Supabase](https://www.supabase.com)
 - The standards are stored in a Postgres Database on Supabase and the embeddings are stored using the `pgvector` extension and are [indexed with an HNSW index](https://supabase.com/blog/increase-performance-pgvector-hnsw).
 
-# But show me the code. How does this magic work?
-
-It all comes down to this query:
-
-```ts
-const result = await connection.queryObject`
-    with embedding as (
-      select embeddings
-      from standards
-      where id = ${standard_id}
-    )
-
-    select
-      standards.id,
-      standards.description,
-      standards.statement_notation,
-      1 - (standards.embeddings <=> embedding.embeddings) as similarity
-    from standards, embedding
-    where
-      standards.jurisdiction_id = ${jurisdiction_id} and
-      standards.embeddings <=> embedding.embeddings < 1 - 0.25
-    order by standards.embeddings <=> embedding.embeddings
-    limit ${count};
-  `
-```
 
 # Can I see an example?
 
@@ -154,6 +129,36 @@ Sure! [Here's a Maryland math standard matched to Texas standards](https://eoryc
 - [Matching a Maryland HS standard to a standard in the Common Core](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=11179ED9013540D4AB575FC0B282C3D6&jurisdiction_id=67810E9EF6944F9383DCC602A3484C23)
 - [Matching a Common Core standard to Maryland Standards](https://eorycauazbxncugxuwto.supabase.co/functions/v1/match_standard?standard_id=41064C0B98A4460181333BF337E74EF3&jurisdiction_id=49FCDFBD2CF04033A9C347BFA0584DF0)
 
+# But show me the code. How does this magic work?
+
+It all comes down to this query:
+
+```ts
+const result = await connection.queryObject`
+    with embedding as (
+      select embeddings
+      from standards
+      where id = ${standard_id}
+    )
+
+    select
+      standards.id,
+      standards.description,
+      standards.statement_notation,
+      1 - (standards.embeddings <=> embedding.embeddings) as similarity
+    from standards, embedding
+    where
+      standards.jurisdiction_id = ${jurisdiction_id} and
+      standards.embeddings <=> embedding.embeddings < 1 - 0.25
+    order by standards.embeddings <=> embedding.embeddings
+    limit ${count};
+  `
+```
+
+# How accurate are these matches?
+It appears very accurate. From reports of another edtech company using a similar approach with a much older embedding model, they found the matches to be just as accurate as hand made matches.
+
+
 # Can I use this?
 
 Sure! Reach out to Scott (scott at commoncurriculum.com)
@@ -166,13 +171,24 @@ Most likely! We're not looking to make any money on this (our main gig is [Commo
 
 1. **Getting the API ready for production.** The API implementation is clearly POC and would need to be cleaned up -- e.g. there isn't any auth or rate limiting. However, I'm not sure if people just want to hit the database directly. If so, it might not make sense to build out that API. If you want to talk to the DB, reach out to Scott and we can make it happen.
 
-2. **Importing the rest of the standards.** I only imported MD, TX, and the Common Core standards. Importing the rest isn't a big job, but just needs to be done.
+2. **Importing the rest of the standards and continuously importing from Common Standards Project** I only imported MD, TX, and the Common Core standards. Importing the rest isn't a big job, but just needs to be done. Also, I haven't hooked it up to continuously import from Common Standards Project as new standards come in. This isn't hard to do, either -- it just needs to be done.
 
-3. **Continuosly importing from Common Standards Project**. I haven't hooked it up to continuously import from Common Standards Project as new standards come in. This isn't hard to do, either -- it just needs to be done.
+3. **Validating pgvector is the most appropriate and not Pinecone**. I think pgvector is as fast as Pinecone, but it's probably worth someone checking.
 
-4. **Validating this is the right embedding model with the right number of dimensions**. I used OpenAI's `text-embedding-3-large` because it was easy and has performed well on the MTEB benchmarks. It's possible `text-embedding-3-small` would be better and it's possible we need to store fewer or more dimensions (I stored 1024 dimensions). Also, it's possible there are other embedding models which would be better suited. To figure this out, a team needs to spend some time running tests to find the most performant way to search for embeddings that produces the highest quality matches.
+4. **Comparing results to hand made alignments and validating this is the right embedding model with the right number of dimensions and the right query and the right similarity score**.
 
-5. **Validating pgvector is the most appropriate and not Pinecone**. I think pgvector is as fast as Pinecone, but it's probably worth someone checking.
+      a. __Comparing results to hand made validations__ To guide the work, a few pairs of standard sets should be used to compare the results of this approach. The results of those tests will help answer the questions below
+
+      b. __Right Embedding model/number of dimensions?__ I used OpenAI's `text-embedding-3-large` because it was easy and has performed well on the MTEB benchmarks. It's possible `text-embedding-3-small` would be better and it's possible we need to store fewer or more dimensions (I stored 1024 dimensions). Also, it's possible there are other embedding models which would be better suited. To figure this out, a team needs to spend some time running tests to find the most performant way to search for embeddings that produces the highest quality matches.
+
+      c. __Right query? Likely, we should constrain results to +/- one grade level__ Right now, it queries for all standards in a jurisdiction that have a cosign similarity score above 0.25. In production, I think the query needs one important tweak: It needs to search for standards within +/- 1 grade level. For instance, even if a 1st grade standard around spelling is substantially similiar to a 5th grade standard, the activities, assessments, and lessons will be dramatically different. Instead, I think a search should query for standards that are a grade level above/below the standard being searched.
+
+      d. __Right similarity score?__ I don't know the right similarity score. People need to do some work to validate the matches against manually created matches
+
+
+# How much more work/time will it take to turn this POC into reality?
+
+The API is probably a week? Validating the embeddings/query/similarity score are correct will probably take two engineers about two weeks. To finish importing all the standards will take Scott a couple days. I'll await to hear if there's a need before embarking on that work.
 
 # Of the next steps, what are you doing to do, Scott?
 
@@ -182,7 +198,7 @@ Most likely! We're not looking to make any money on this (our main gig is [Commo
 
 # I'd like to help turn this API into something production ready.
 
-Awesome! Reach out to Scott (scott at commoncurriculum).
+Awesome! Reach out to Scott (scott at commoncurriculum dot com).
 
 - If you'd like to continue the work with Supabase (my preference as it's serverless), I can invite as a collaborator on this repo and give you access to the Supabase project.
 
